@@ -1,7 +1,5 @@
--- ============================================================
 -- somnacog database
 -- Sleep Cognition Study
--- ============================================================
 
 -- create the database
 DROP DATABASE IF EXISTS somnacog;
