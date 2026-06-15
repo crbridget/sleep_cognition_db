@@ -1,12 +1,6 @@
--- somnacog database
--- Sleep Cognition Study
-
--- create the database
 DROP DATABASE IF EXISTS somnacog;
 CREATE DATABASE somnacog;
 USE somnacog;
-
--- TABLE DEFINITIONS
 
 DROP TABLE IF EXISTS subject_diagnoses;
 DROP TABLE IF EXISTS test_results;
@@ -22,7 +16,8 @@ CREATE TABLE subjects (
     gender VARCHAR(50),
     occupation VARCHAR(20),
     bmi_category VARCHAR(20),
-    blood_pressure VARCHAR(10),
+    systolic INT,
+    diastolic INT,
     heart_rate INT,
     daily_steps INT,
     physical_activity_min INT,
@@ -99,60 +94,57 @@ CREATE TABLE subject_diagnoses (
     CONSTRAINT uq_subject_disorder UNIQUE (subject_id, disorder_id)
 );
 
-
--- INSERT DATA
-
 -- subjects
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (58, 'Male', 'Nurse', 'Overweight', '115/74', 63, 14066, 23, 9, 'Never', 200);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (45, 'Male', 'Nurse', 'Underweight', '113/74', 87, 11863, 13, 9, 'Never', 300);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (59, 'Non-binary', 'Retired', 'Obese', '114/88', 92, 6557, 113, 1, 'Never', 300);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (45, 'Female', 'Lawyer', 'Normal', '113/81', 61, 3519, 58, 2, 'Former', 400);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (40, 'Non-binary', 'Lawyer', 'Underweight', '146/89', 89, 4045, 58, 2, 'Current', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (71, 'Non-binary', 'Freelancer', 'Overweight', '136/72', 100, 3139, 15, 4, 'Former', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (72, 'Male', 'Engineer', 'Obese', '117/89', 95, 7977, 30, 6, 'Former', 50);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (60, 'Female', 'Engineer', 'Normal', '134/75', 65, 9573, 58, 5, 'Current', 300);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (53, 'Male', 'Student', 'Underweight', '114/62', 75, 8572, 44, 2, 'Never', 200);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (74, 'Non-binary', 'Student', 'Normal', '141/91', 80, 12532, 68, 3, 'Former', 50);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (33, 'Non-binary', 'Retired', 'Overweight', '147/97', 82, 11560, 61, 6, 'Never', 50);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (50, 'Female', 'Engineer', 'Underweight', '155/67', 64, 12280, 30, 7, 'Current', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (42, 'Female', 'Freelancer', 'Obese', '133/76', 90, 2188, 97, 2, 'Current', 200);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (66, 'Female', 'Student', 'Underweight', '118/87', 65, 9433, 10, 5, 'Current', 400);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (29, 'Non-binary', 'Engineer', 'Overweight', '153/100', 87, 11977, 35, 3, 'Former', 400);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (28, 'Non-binary', 'Retired', 'Underweight', '138/80', 86, 2319, 24, 6, 'Former', 50);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (21, 'Male', 'Freelancer', 'Underweight', '105/91', 59, 14461, 78, 3, 'Never', 300);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (48, 'Non-binary', 'Teacher', 'Overweight', '133/98', 82, 5470, 79, 4, 'Current', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (43, 'Non-binary', 'Student', 'Obese', '157/93', 83, 3982, 41, 4, 'Never', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (19, 'Non-binary', 'Retired', 'Normal', '137/74', 55, 3163, 100, 1, 'Never', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (75, 'Male', 'Student', 'Underweight', '132/75', 72, 12960, 72, 4, 'Current', 50);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (64, 'Non-binary', 'Freelancer', 'Obese', '115/90', 81, 5119, 22, 2, 'Current', 150);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (40, 'Female', 'Manager', 'Obese', '155/63', 98, 12706, 92, 2, 'Never', 150);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (64, 'Female', 'Engineer', 'Normal', '112/72', 89, 9350, 27, 7, 'Never', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (47, 'Male', 'Engineer', 'Obese', '151/95', 61, 2828, 93, 9, 'Never', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (66, 'Male', 'Teacher', 'Obese', '131/90', 68, 8570, 17, 3, 'Former', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (42, 'Female', 'Driver', 'Overweight', '127/95', 97, 13770, 72, 3, 'Never', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (31, 'Male', 'Freelancer', 'Underweight', '147/80', 58, 2821, 84, 8, 'Current', 400);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (51, 'Male', 'Nurse', 'Underweight', '154/71', 59, 11749, 18, 4, 'Former', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (74, 'Non-binary', 'Doctor', 'Underweight', '139/65', 81, 12770, 84, 10, 'Current', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (34, 'Male', 'Student', 'Normal', '116/85', 63, 13004, 92, 5, 'Former', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (66, 'Male', 'Nurse', 'Obese', '139/96', 61, 3200, 78, 4, 'Current', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (26, 'Female', 'Engineer', 'Normal', '123/78', 65, 9179, 116, 9, 'Current', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (57, 'Non-binary', 'Retired', 'Underweight', '142/95', 74, 12868, 23, 3, 'Former', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (74, 'Male', 'Retired', 'Normal', '117/78', 93, 5450, 101, 6, 'Never', 300);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (58, 'Female', 'Retired', 'Obese', '116/63', 60, 12392, 64, 5, 'Never', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (39, 'Male', 'Lawyer', 'Normal', '147/88', 90, 13561, 64, 9, 'Never', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (22, 'Non-binary', 'Teacher', 'Underweight', '153/83', 92, 11052, 28, 7, 'Never', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (37, 'Female', 'Nurse', 'Overweight', '113/75', 97, 3684, 55, 9, 'Former', 200);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (65, 'Male', 'Doctor', 'Normal', '151/71', 81, 2406, 32, 6, 'Former', 400);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (60, 'Non-binary', 'Doctor', 'Overweight', '110/66', 79, 2634, 119, 8, 'Never', 50);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (70, 'Female', 'Student', 'Overweight', '152/74', 69, 2387, 94, 4, 'Former', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (35, 'Male', 'Lawyer', 'Overweight', '141/92', 80, 13133, 117, 9, 'Former', 0);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (25, 'Female', 'Teacher', 'Overweight', '102/66', 93, 9119, 54, 6, 'Former', 200);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (50, 'Male', 'Manager', 'Normal', '116/62', 100, 9144, 10, 9, 'Current', 300);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (64, 'Non-binary', 'Doctor', 'Overweight', '127/64', 97, 7409, 89, 6, 'Current', 400);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (25, 'Non-binary', 'Lawyer', 'Overweight', '142/86', 75, 8592, 99, 5, 'Current', 50);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (30, 'Female', 'Manager', 'Normal', '139/96', 74, 8653, 80, 1, 'Former', 100);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (31, 'Female', 'Freelancer', 'Overweight', '129/88', 83, 13069, 37, 9, 'Former', 400);
-INSERT INTO subjects (age, gender, occupation, bmi_category, blood_pressure, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (75, 'Non-binary', 'Teacher', 'Underweight', '118/92', 97, 12370, 89, 6, 'Never', 400);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (58, 'Male', 'Nurse', 'Overweight', 115, 74, 63, 14066, 23, 9, 'Never', 200);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (45, 'Male', 'Nurse', 'Underweight', 113, 74, 87, 11863, 13, 9, 'Never', 300);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (59, 'Non-binary', 'Retired', 'Obese', 114, 88, 92, 6557, 113, 1, 'Never', 300);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (45, 'Female', 'Lawyer', 'Normal', 113, 81, 61, 3519, 58, 2, 'Former', 400);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (40, 'Non-binary', 'Lawyer', 'Underweight', 146, 89, 89, 4045, 58, 2, 'Current', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (71, 'Non-binary', 'Freelancer', 'Overweight', 136, 72, 100, 3139, 15, 4, 'Former', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (72, 'Male', 'Engineer', 'Obese', 117, 89, 95, 7977, 30, 6, 'Former', 50);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (60, 'Female', 'Engineer', 'Normal', 134, 75, 65, 9573, 58, 5, 'Current', 300);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (53, 'Male', 'Student', 'Underweight', 114, 62, 75, 8572, 44, 2, 'Never', 200);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (74, 'Non-binary', 'Student', 'Normal', 141, 91, 80, 12532, 68, 3, 'Former', 50);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (33, 'Non-binary', 'Retired', 'Overweight', 147, 97, 82, 11560, 61, 6, 'Never', 50);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (50, 'Female', 'Engineer', 'Underweight', 155, 67, 64, 12280, 30, 7, 'Current', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (42, 'Female', 'Freelancer', 'Obese', 133, 76, 90, 2188, 97, 2, 'Current', 200);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (66, 'Female', 'Student', 'Underweight', 118, 87, 65, 9433, 10, 5, 'Current', 400);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (29, 'Non-binary', 'Engineer', 'Overweight', 153, 100, 87, 11977, 35, 3, 'Former', 400);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (28, 'Non-binary', 'Retired', 'Underweight', 138, 80, 86, 2319, 24, 6, 'Former', 50);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (21, 'Male', 'Freelancer', 'Underweight', 105, 91, 59, 14461, 78, 3, 'Never', 300);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (48, 'Non-binary', 'Teacher', 'Overweight', 133, 98, 82, 5470, 79, 4, 'Current', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (43, 'Non-binary', 'Student', 'Obese', 157, 93, 83, 3982, 41, 4, 'Never', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (19, 'Non-binary', 'Retired', 'Normal', 137, 74, 55, 3163, 100, 1, 'Never', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (75, 'Male', 'Student', 'Underweight', 132, 75, 72, 12960, 72, 4, 'Current', 50);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (64, 'Non-binary', 'Freelancer', 'Obese', 115, 90, 81, 5119, 22, 2, 'Current', 150);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (40, 'Female', 'Manager', 'Obese', 155, 63, 98, 12706, 92, 2, 'Never', 150);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (64, 'Female', 'Engineer', 'Normal', 112, 72, 89, 9350, 27, 7, 'Never', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (47, 'Male', 'Engineer', 'Obese', 151, 95, 61, 2828, 93, 9, 'Never', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (66, 'Male', 'Teacher', 'Obese', 131, 90, 68, 8570, 17, 3, 'Former', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (42, 'Female', 'Driver', 'Overweight', 127, 95, 97, 13770, 72, 3, 'Never', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (31, 'Male', 'Freelancer', 'Underweight', 147, 80, 58, 2821, 84, 8, 'Current', 400);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (51, 'Male', 'Nurse', 'Underweight', 154, 71, 59, 11749, 18, 4, 'Former', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (74, 'Non-binary', 'Doctor', 'Underweight', 139, 65, 81, 12770, 84, 10, 'Current', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (34, 'Male', 'Student', 'Normal', 116, 85, 63, 13004, 92, 5, 'Former', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (66, 'Male', 'Nurse', 'Obese', 139, 96, 61, 3200, 78, 4, 'Current', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (26, 'Female', 'Engineer', 'Normal', 123, 78, 65, 9179, 116, 9, 'Current', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (57, 'Non-binary', 'Retired', 'Underweight', 142, 95, 74, 12868, 23, 3, 'Former', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (74, 'Male', 'Retired', 'Normal', 117, 78, 93, 5450, 101, 6, 'Never', 300);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (58, 'Female', 'Retired', 'Obese', 116, 63, 60, 12392, 64, 5, 'Never', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (39, 'Male', 'Lawyer', 'Normal', 147, 88, 90, 13561, 64, 9, 'Never', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (22, 'Non-binary', 'Teacher', 'Underweight', 153, 83, 92, 11052, 28, 7, 'Never', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (37, 'Female', 'Nurse', 'Overweight', 113, 75, 97, 3684, 55, 9, 'Former', 200);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (65, 'Male', 'Doctor', 'Normal', 151, 71, 81, 2406, 32, 6, 'Former', 400);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (60, 'Non-binary', 'Doctor', 'Overweight', 110, 66, 79, 2634, 119, 8, 'Never', 50);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (70, 'Female', 'Student', 'Overweight', 152, 74, 69, 2387, 94, 4, 'Former', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (35, 'Male', 'Lawyer', 'Overweight', 141, 92, 80, 13133, 117, 9, 'Former', 0);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (25, 'Female', 'Teacher', 'Overweight', 102, 66, 93, 9119, 54, 6, 'Former', 200);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (50, 'Male', 'Manager', 'Normal', 116, 62, 100, 9144, 10, 9, 'Current', 300);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (64, 'Non-binary', 'Doctor', 'Overweight', 127, 64, 97, 7409, 89, 6, 'Current', 400);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (25, 'Non-binary', 'Lawyer', 'Overweight', 142, 86, 75, 8592, 99, 5, 'Current', 50);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (30, 'Female', 'Manager', 'Normal', 139, 96, 74, 8653, 80, 1, 'Former', 100);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (31, 'Female', 'Freelancer', 'Overweight', 129, 88, 83, 13069, 37, 9, 'Former', 400);
+INSERT INTO subjects (age, gender, occupation, bmi_category, systolic, diastolic, heart_rate, daily_steps, physical_activity_min, stress_level, smoking_status, caffeine_mg) VALUES (75, 'Non-binary', 'Teacher', 'Underweight', 118, 92, 97, 12370, 89, 6, 'Never', 400);
 
 -- cognitive_tests
 INSERT INTO cognitive_tests (test_name, cognitive_domain, score_range_min, score_range_max, description) VALUES ('Word Recall Test', 'Memory', 0, 100, 'Measures memory performance');
@@ -512,16 +504,24 @@ INSERT INTO subject_diagnoses (diagnosis_date, severity, subject_id, disorder_id
 INSERT INTO subject_diagnoses (diagnosis_date, severity, subject_id, disorder_id) VALUES ('2023-09-12', 'Moderate', 46, 2);
 INSERT INTO subject_diagnoses (diagnosis_date, severity, subject_id, disorder_id) VALUES ('2023-03-02', 'Mild', 50, 3);
 
--- INDEXES (added after data insertion for faster loading)
-
+-- subjects: occupation and age are filtered/grouped in queries
 CREATE INDEX idx_subjects_occupation ON subjects (occupation);
 CREATE INDEX idx_subjects_age ON subjects (age);
 
+-- sleep_sessions: subject_id joins to subjects on every query
 CREATE INDEX idx_sleep_sessions_subject_id ON sleep_sessions (subject_id);
+-- session_date: correlates sleep nights with cognitive test dates
 CREATE INDEX idx_sleep_sessions_date ON sleep_sessions (session_date);
+-- total_sleep_hrs: query 1 filters on sleep duration thresholds
 CREATE INDEX idx_sleep_sessions_total_sleep ON sleep_sessions (total_sleep_hrs);
+-- rem_pct: query 3 filters on top/bottom REM percentages
 CREATE INDEX idx_sleep_sessions_rem ON sleep_sessions (rem_pct);
 
+-- test_results: subject_id and test_id hit on every cognition query
 CREATE INDEX idx_test_results_subject_id ON test_results (subject_id);
 CREATE INDEX idx_test_results_test_id ON test_results (test_id);
+-- test_date: used to correlate results with nearby sleep sessions
 CREATE INDEX idx_test_results_date ON test_results (test_date);
+
+-- subject_diagnoses: subject_id and disorder_id indexes are created
+-- automatically by the UNIQUE constraint, no additional indexes needed
